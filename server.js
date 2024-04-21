@@ -4,8 +4,7 @@ const bodyParser = require('body-parser');
 const path = require('path');
 
 const app = express();
-const port = 30027;
-;
+const port = 30021;
 
 app.use(bodyParser.json());
 
@@ -58,25 +57,5 @@ app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
     
 });
-function highlightCurrentDate() {
-    const currentDate = new Date();
-    const currentYear = currentDate.getFullYear();
-    const currentMonth = currentDate.getMonth();
-    const currentDay = currentDate.getDate();
-    
-    // Find the cell corresponding to the current date
-    const cells = document.querySelectorAll('.day');
-    cells.forEach(cell => {
-        const cellDate = new Date(cell.dataset.date);
-        if (cellDate.getFullYear() === currentYear && 
-            cellDate.getMonth() === currentMonth && 
-            cellDate.getDate() === currentDay) {
-            cell.classList.add('current-date'); // Add CSS class to highlight
-        }
-    });
-}
-
-// Call the function to highlight the current date
-highlightCurrentDate();
 
 
