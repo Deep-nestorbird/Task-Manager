@@ -1,44 +1,11 @@
 const tasks = {};
 
 document.addEventListener('DOMContentLoaded', () => {
-    const addTaskBtn = document.getElementById('addTaskBtn');
+    
     const modal = document.getElementById('myModal');
     const taskForm = document.getElementById('taskForm');
 
-    // Show the modal when the "Add Task" button is clicked
-    addTaskBtn.addEventListener('click', () => {
-        modal.style.display = 'block';
-        // Clear the form fields when the modal is opened
-        taskForm.reset();
-    });
-    document.addEventListener('DOMContentLoaded', function () {
-        // Highlight current date
-        highlightCurrentDate();
-    });
     
-    function highlightCurrentDate() {
-        const currentDate = new Date();
-        const currentYear = currentDate.getFullYear();
-        const currentMonth = currentDate.getMonth();
-        const currentDay = currentDate.getDate();
-        
-        // Find the cell corresponding to the current date
-        const cells = document.querySelectorAll('.day');
-        cells.forEach(cell => {
-            const cellDate = new Date(cell.dataset.date);
-            if (cellDate.getFullYear() === currentYear && 
-                cellDate.getMonth() === currentMonth && 
-                cellDate.getDate() === currentDay) {
-                cell.classList.add('current-date'); // Add CSS class to highlight
-            }
-        });
-    }
-    
-    
-    
-   // addTaskBtn.addEventListener
-
-    // Close the modal when the user clicks on <span> (x)
     document.getElementsByClassName('close')[0].addEventListener('click', () => {
         modal.style.display = 'none';
     });
@@ -53,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Handle form submission
     taskForm.addEventListener('submit', (event) => {
         event.preventDefault();
-
+debugger;
         const formData = new FormData(taskForm);
         const task = formData.get('task');
         const date = formData.get('date');
@@ -83,10 +50,14 @@ document.addEventListener('DOMContentLoaded', () => {
             });
     });
 });
-
 function createCalendar(year, month) {
     const container = document.getElementById('calendar-body');
     container.innerHTML = ''; // Clear previous content
+
+    const currentDate = new Date(); // Get the current date
+    const currentYear = currentDate.getFullYear();
+    const currentMonth = currentDate.getMonth();
+    const currentDay = currentDate.getDate();
 
     const daysInMonth = new Date(year, month + 1, 0).getDate(); // Get the number of days in the month
     const firstDayOfMonth = new Date(year, month, 1).getDay(); // Get the day of the week of the first day
@@ -108,6 +79,9 @@ function createCalendar(year, month) {
                     const date = this.dataset.date;
                     addTask(date);
                 });
+                if (year === currentYear && month === currentMonth && dateCounter === currentDay) {
+                    cell.classList.add('today'); // Highlight the current date
+                }
                 const taskList = document.createElement('ul');
                 taskList.className = 'task-list';
                 taskList.dataset.date = date;
@@ -126,6 +100,7 @@ function createCalendar(year, month) {
         displayTasks(date);
     });
 }
+
 
 function addTask(date) {
     // Display the modal
